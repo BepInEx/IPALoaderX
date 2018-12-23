@@ -1,6 +1,6 @@
 # IPALoaderX
 
-An improved version of the IPALoader from [BepisPlugins](https://github.com/bbepis/BepisPlugins#ipaloader).
+An improved version of the IPALoader from [BepisPlugins](https://github.com/bbepis/BepisPlugins#ipaloader). Most of the code was copied from the [IPA github page](https://github.com/Eusth/IPA).
 
 This plugin lets you load IPA plugins while using BepInEx and attempts to do that in the most accurate way possible to allow for every plugin to work without modification. I can't guarantee absolutely every plugin will work because testing that would be impossible for one person. So if you suspect some plugin is not handled correctly by IPALoaderX, don't hesitate to make a new issue on this github page.
 
