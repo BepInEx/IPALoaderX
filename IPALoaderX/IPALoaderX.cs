@@ -13,8 +13,9 @@ namespace IPALoaderX
             //only required for ILMerge
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-                if(args.Name == "IllusionPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")
-                    return Assembly.GetExecutingAssembly();
+                if(args.Name == "IllusionPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ||
+                   args.Name == "IllusionInjector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")
+                        return Assembly.GetExecutingAssembly();
 
                 return null;
             };
@@ -22,8 +23,15 @@ namespace IPALoaderX
 
         void Awake()
         {
-            var bootstrapper = new GameObject("Bootstrapper").AddComponent<Bootstrapper>();
-            bootstrapper.Destroyed += Bootstrapper_Destroyed;
+            if(PluginManager.Plugins.Count > 0)
+            {
+                var bootstrapper = new GameObject("Bootstrapper").AddComponent<Bootstrapper>();
+                bootstrapper.Destroyed += Bootstrapper_Destroyed;
+            }
+            else
+            {
+                Console.WriteLine("No IPA plugins");
+            }
         }
 
         static void Bootstrapper_Destroyed()

@@ -42,6 +42,9 @@
       <HintPath>..\..\..\BepInEx\core\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="IllusionInjector">
+      <HintPath>..\..\IPA\IllusionInjector\bin\Debug\IllusionInjector.dll</HintPath>
+    </Reference>
     <Reference Include="IllusionPlugin">
       <HintPath>..\..\IPA\IllusionInjector\bin\Debug\IllusionPlugin.dll</HintPath>
       <Private>True</Private>

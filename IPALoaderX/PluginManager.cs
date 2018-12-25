@@ -12,7 +12,7 @@ namespace IPALoaderX
     {
         static List<IPlugin> _Plugins = null;
 
-        public static IEnumerable<IPlugin> Plugins
+        public static List<IPlugin> Plugins
         {
             get
             {
@@ -26,12 +26,12 @@ namespace IPALoaderX
         static void LoadPlugins()
         {
             string pluginDirectory = Path.Combine(Paths.GameRootPath, "Plugins");
+            _Plugins = new List<IPlugin>();
 
             if(!Directory.Exists(pluginDirectory))
                 return;
 
             string exeName = Path.GetFileNameWithoutExtension(Paths.ExecutablePath);
-            _Plugins = new List<IPlugin>();
 
             foreach(var s in Directory.GetFiles(pluginDirectory, "*.dll"))
             {
@@ -47,7 +47,7 @@ namespace IPALoaderX
             Console.WriteLine(new string('-', 40));
         }
 
-        static IEnumerable<IPlugin> LoadPluginsFromFile(string file, string exeName)
+        static List<IPlugin> LoadPluginsFromFile(string file, string exeName)
         {
             List<IPlugin> plugins = new List<IPlugin>();
 
