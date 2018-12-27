@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace IPALoaderX
+namespace IllusionInjector
 {
     public class PluginComponent : MonoBehaviour
     {
-        CompositePlugin plugins;
-        bool freshlyLoaded = false;
-        bool quitting = false;
+        private CompositePlugin plugins;
+        private bool freshlyLoaded = false;
+        private bool quitting = false;
 
-        public static void Create()
+        public static PluginComponent Create()
         {
-            new GameObject("IPA_PluginManager").AddComponent<PluginComponent>();
+            return new GameObject("IPA_PluginManager").AddComponent<PluginComponent>();
         }
 
         void Awake()
@@ -25,7 +26,7 @@ namespace IPALoaderX
 
         void Start()
         {
-            OnLevelWasLoaded(SceneManager.GetActiveScene().buildIndex);
+            OnLevelWasLoaded(Application.loadedLevel);
         }
 
         void Update()
@@ -33,9 +34,8 @@ namespace IPALoaderX
             if (freshlyLoaded)
             {
                 freshlyLoaded = false;
-                plugins.OnLevelWasInitialized(SceneManager.GetActiveScene().buildIndex);
+                plugins.OnLevelWasInitialized(Application.loadedLevel);
             }
-
             plugins.OnUpdate();
         }
 
@@ -52,12 +52,15 @@ namespace IPALoaderX
         void OnDestroy()
         {
             if (!quitting)
+            {
                 Create();
+            }
         }
         
         void OnApplicationQuit()
         {
             plugins.OnApplicationQuit();
+
             quitting = true;
         }
 
@@ -66,5 +69,6 @@ namespace IPALoaderX
             plugins.OnLevelWasLoaded(level);
             freshlyLoaded = true;
         }
+
     }
 }

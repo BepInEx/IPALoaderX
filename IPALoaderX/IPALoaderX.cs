@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using BepInEx;
-using UnityEngine;
+using IllusionInjector;
 
 namespace IPALoaderX
 {
@@ -23,20 +23,7 @@ namespace IPALoaderX
 
         void Awake()
         {
-            if(PluginManager.Plugins.Count > 0)
-            {
-                var bootstrapper = new GameObject("Bootstrapper").AddComponent<Bootstrapper>();
-                bootstrapper.Destroyed += Bootstrapper_Destroyed;
-            }
-            else
-            {
-                Console.WriteLine("No IPA plugins");
-            }
-        }
-
-        static void Bootstrapper_Destroyed()
-        {
-            PluginComponent.Create();
+            Injector.Inject();
         }
     }
 }

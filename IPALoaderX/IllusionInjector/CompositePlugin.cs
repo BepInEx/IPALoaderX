@@ -1,13 +1,16 @@
 ﻿using IllusionPlugin;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 
-namespace IPALoaderX
+namespace IllusionInjector
 {
     public class CompositePlugin : IPlugin
     {
         IEnumerable<IPlugin> plugins;
-        delegate void CompositeCall(IPlugin plugin);
+
+        private delegate void CompositeCall(IPlugin plugin);
 
         public CompositePlugin(IEnumerable<IPlugin> plugins)
         {
@@ -39,7 +42,8 @@ namespace IPALoaderX
             }
         }
 
-        void Invoke(CompositeCall callback)
+
+        private void Invoke(CompositeCall callback)
         {
             foreach (var plugin in plugins)
             {
@@ -53,6 +57,8 @@ namespace IPALoaderX
                 }
             }
         }
+
+
 
         public void OnLevelWasInitialized(int level)
         {
@@ -69,6 +75,7 @@ namespace IPALoaderX
             }
         }
 
+
         public void OnUpdate()
         {
             Invoke(plugin => plugin.OnUpdate());
@@ -78,6 +85,7 @@ namespace IPALoaderX
         {
             Invoke(plugin => plugin.OnFixedUpdate());
         }
+
 
         public string Name
         {
