@@ -59,8 +59,6 @@
     <Compile Include="IllusionPlugin\IPlugin.cs" />
     <Compile Include="IllusionPlugin\ModPrefs.cs" />
     <Compile Include="IPALoaderX.cs" />
-    <None Include="PluginComponent.cs" />
-    <None Include="PluginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

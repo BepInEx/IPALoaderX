@@ -1,13 +1,14 @@
 ﻿using IllusionPlugin;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using BepInEx.Logging;
+using static BepInEx.Logger;
+using BepInEx;
 
 namespace IllusionInjector
 {
@@ -30,37 +31,31 @@ namespace IllusionInjector
             }
         }
 
-
         private static void LoadPlugins()
         {
             string pluginDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
 
             // Process.GetCurrentProcess().MainModule crashes the game and Assembly.GetEntryAssembly() is NULL,
             // so we need to resort to P/Invoke
-            string exeName = Path.GetFileNameWithoutExtension(AppInfo.StartupPath);
-            Console.WriteLine(exeName);
+            //string exeName = Path.GetFileNameWithoutExtension(AppInfo.StartupPath);
+            string exeName = Path.GetFileNameWithoutExtension(Paths.ExecutablePath);
             _Plugins = new List<IPlugin>();
 
             if (!Directory.Exists(pluginDirectory)) return;
-            
-            String[] files = Directory.GetFiles(pluginDirectory, "*.dll");
+
+            string[] files = Directory.GetFiles(pluginDirectory, "*.dll");
             foreach (var s in files)
             {
                 _Plugins.AddRange(LoadPluginsFromFile(Path.Combine(pluginDirectory, s), exeName));
             }
-            
 
-            // DEBUG
-            Console.WriteLine("Running on Unity {0}", UnityEngine.Application.unityVersion);
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine("Loading plugins from {0} and found {1}", pluginDirectory, _Plugins.Count);
-            Console.WriteLine("-----------------------------");
+            Log(LogLevel.Info, new string('-', 40));
+            Log(LogLevel.Info, $"IPALoaderX found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
             foreach (var plugin in _Plugins)
             {
-
-                Console.WriteLine(" {0}: {1}", plugin.Name, plugin.Version);
+                Log(LogLevel.Info, $"{plugin.Name}: {plugin.Version}");
             }
-            Console.WriteLine("-----------------------------");
+            Log(LogLevel.Info, new string('-', 40));
         }
 
         private static IEnumerable<IPlugin> LoadPluginsFromFile(string file, string exeName)
@@ -98,7 +93,6 @@ namespace IllusionInjector
                         }
                     }
                 }
-
             }
             catch (Exception e)
             {

@@ -69,6 +69,5 @@ namespace IllusionInjector
             plugins.OnLevelWasLoaded(level);
             freshlyLoaded = true;
         }
-
     }
 }

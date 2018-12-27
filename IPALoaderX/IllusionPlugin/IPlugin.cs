@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IllusionPlugin
+﻿namespace IllusionPlugin
 {
     /// <summary>
     /// Interface for generic Illusion unity plugins. Every class that implements this will be loaded if the DLL is placed at

@@ -1,8 +1,6 @@
 ﻿using IllusionPlugin;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 
 namespace IllusionInjector
 {
@@ -42,7 +40,6 @@ namespace IllusionInjector
             }
         }
 
-
         private void Invoke(CompositeCall callback)
         {
             foreach (var plugin in plugins)
@@ -57,8 +54,6 @@ namespace IllusionInjector
                 }
             }
         }
-
-
 
         public void OnLevelWasInitialized(int level)
         {
@@ -75,7 +70,6 @@ namespace IllusionInjector
             }
         }
 
-
         public void OnUpdate()
         {
             Invoke(plugin => plugin.OnUpdate());
@@ -85,7 +79,6 @@ namespace IllusionInjector
         {
             Invoke(plugin => plugin.OnFixedUpdate());
         }
-
 
         public string Name
         {

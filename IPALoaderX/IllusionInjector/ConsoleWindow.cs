@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Text;
 
 namespace Windows
 {
-
     class GuiConsole 
     { 
         public static void CreateConsole() 
@@ -22,7 +20,8 @@ namespace Windows
                         throw new Exception("SetStdHandle() failed"); 
                 StreamToConsole(); 
                 hasConsole = true; 
-        } 
+        }
+
         public static void ReleaseConsole() 
         { 
                 if (! hasConsole) 
@@ -36,7 +35,8 @@ namespace Windows
                         throw new Exception("SetStdHandle() failed"); 
                 StreamToConsole(); 
                 hasConsole = false; 
-        } 
+        }
+
         private static void StreamToConsole() 
         { 
                 Stream cstm = Console.OpenStandardOutput(); 
@@ -44,7 +44,8 @@ namespace Windows
                 cstw.AutoFlush = true; 
                 Console.SetOut( cstw ); 
                 Console.SetError( cstw ); 
-        } 
+        }
+
         private static bool hasConsole = false; 
         private static IntPtr conOut; 
         private static IntPtr oldOut; 
