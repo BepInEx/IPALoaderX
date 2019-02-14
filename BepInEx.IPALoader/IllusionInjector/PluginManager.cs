@@ -32,12 +32,9 @@ namespace IllusionInjector
 
         private static void LoadPlugins()
         {
-            string pluginDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
+            // Use the same Plugins folder path as in IPA for perfect emulation
+            string pluginDirectory = Path.Combine(Paths.GameRootPath, "Plugins");
 
-            // Process.GetCurrentProcess().MainModule crashes the game and Assembly.GetEntryAssembly() is NULL,
-            // so we need to resort to P/Invoke
-            //string exeName = Path.GetFileNameWithoutExtension(AppInfo.StartupPath);
-            string exeName = Path.GetFileNameWithoutExtension(Paths.ExecutablePath);
             _Plugins = new List<IPlugin>();
 
             if (!Directory.Exists(pluginDirectory)) return;
@@ -45,11 +42,11 @@ namespace IllusionInjector
             string[] files = Directory.GetFiles(pluginDirectory, "*.dll");
             foreach (var s in files)
             {
-                _Plugins.AddRange(LoadPluginsFromFile(Path.Combine(pluginDirectory, s), exeName));
+                _Plugins.AddRange(LoadPluginsFromFile(Path.Combine(pluginDirectory, s), Paths.ProcessName));
             }
 
             Plugin.Logger.LogInfo(new string('-', 40));
-            Plugin.Logger.LogInfo($"IPALoaderX found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
+            Plugin.Logger.LogInfo($"IPALoader found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
             foreach (var plugin in _Plugins)
             {
                 Plugin.Logger.LogInfo($"{plugin.Name}: {plugin.Version}");

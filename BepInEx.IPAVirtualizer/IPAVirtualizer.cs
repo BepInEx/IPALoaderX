@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Mono.Cecil;
 
-namespace IPAVirtualizer
+namespace BepInEx.IPAVirtualizer
 {
     public static class IPAVirtualizer
     {

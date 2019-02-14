@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Reflection;
-using BepInEx;
 using BepInEx.Logging;
 using IllusionInjector;
 
-namespace IPALoaderX
+namespace BepInEx.IPALoader
 {
-    [BepInPlugin("keelhauled.ipaloaderx", "IPALoaderX", "1.0.0")]
-    public class IPALoaderX : BaseUnityPlugin
+    [BepInPlugin("keelhauled.ipaloader", "IPALoader", "1.0.0")]
+    public class IPALoader : BaseUnityPlugin
     {
         internal new static ManualLogSource Logger;
 
-        IPALoaderX()
+        IPALoader()
         {
             Logger = base.Logger;
 

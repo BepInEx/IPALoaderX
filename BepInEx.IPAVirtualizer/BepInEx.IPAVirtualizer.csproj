@@ -4,22 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{780F5E83-2A6B-4EA0-9476-449F5D96D56F}</ProjectGuid>
+    <ProjectGuid>{4E636178-ADD9-4306-BE77-357ADFB13AAB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IPALoaderX</RootNamespace>
-    <AssemblyName>IPALoaderX</AssemblyName>
+    <RootNamespace>BepInEx.IPAVirtualizer</RootNamespace>
+    <AssemblyName>BepInEx.IPAVirtualizer</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\BepInEx\</OutputPath>
+    <OutputPath>..\..\..\BepInEx\patchers\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,28 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BepInEx">
-      <HintPath>..\lib\BepInEx.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Mono.Cecil, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.10.3\lib\net35\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\lib\UnityEngine.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IllusionInjector\Bootstrapper.cs" />
-    <Compile Include="IllusionInjector\CompositePlugin.cs" />
-    <Compile Include="IllusionInjector\ConsoleWindow.cs" />
-    <Compile Include="IllusionInjector\Injector.cs" />
-    <Compile Include="IllusionInjector\PluginComponent.cs" />
-    <Compile Include="IllusionInjector\PluginManager.cs" />
-    <Compile Include="IllusionPlugin\IEnhancedPlugin.cs" />
-    <Compile Include="IllusionPlugin\IniFile.cs" />
-    <Compile Include="IllusionPlugin\IPlugin.cs" />
-    <Compile Include="IllusionPlugin\ModPrefs.cs" />
-    <Compile Include="IPALoaderX.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IPAVirtualizer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
