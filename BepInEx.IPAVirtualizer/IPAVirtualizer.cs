@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
+using BepInEx.Logging;
 using Mono.Cecil;
 
 namespace BepInEx.IPAVirtualizer
@@ -11,10 +11,13 @@ namespace BepInEx.IPAVirtualizer
 			"Assembly-CSharp.dll"
 		};
 
+		private static ManualLogSource Logger;
+
 		public static void Patch(AssemblyDefinition ass)
 		{
-			foreach (var type in ass.MainModule.Types)
-				VirtualizeType(type);
+			using (Logger = BepInEx.Logger.CreateLogSource("IPAVirtualizer"))
+				foreach (var type in ass.MainModule.Types)
+					VirtualizeType(type);
 		}
 
 		public static void VirtualizeType(TypeDefinition type)
@@ -31,7 +34,9 @@ namespace BepInEx.IPAVirtualizer
 			if (type.Name == "SceneControl" || type.Name == "ConfigUI")
 				return;
 
-			Trace.TraceInformation($"Virtualizing {type.Name}");
+			// Write to debug to not spam the console by default
+			Logger.LogDebug($"Virtualizing {type.Name}");
+
 			// Take care of sub types
 			foreach (var subType in type.NestedTypes)
 				VirtualizeType(subType);
