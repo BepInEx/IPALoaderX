@@ -14,7 +14,7 @@ namespace BepInEx.IPALoader
 		{
 			Logger = base.Logger;
 
-			//only required for ILMerge
+			// Redirect missing assembly requests to this assembly, since we have all the emulated code
 			AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
 			{
 				if (args.Name == "IllusionPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ||

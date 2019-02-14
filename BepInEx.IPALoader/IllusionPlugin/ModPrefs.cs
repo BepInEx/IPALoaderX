@@ -10,15 +10,7 @@ namespace IllusionPlugin
 	{
 		private static IniFile _instance;
 
-		private static IniFile Instance
-		{
-			get
-			{
-				if (_instance == null)
-					_instance = new IniFile(Path.Combine(Environment.CurrentDirectory, "UserData/modprefs.ini"));
-				return _instance;
-			}
-		}
+		private static IniFile Instance => _instance ?? (_instance = new IniFile(Path.Combine(Environment.CurrentDirectory, "UserData/modprefs.ini")));
 
 
 		/// <summary>

@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using BepInEx;
+using BepInEx.IPALoader;
 using IllusionPlugin;
-using Plugin = IPALoaderX.IPALoaderX;
 
 namespace IllusionInjector
 {
@@ -42,11 +42,11 @@ namespace IllusionInjector
 			foreach (string s in files)
 				_Plugins.AddRange(LoadPluginsFromFile(Path.Combine(pluginDirectory, s), Paths.ProcessName));
 
-			Plugin.Logger.LogInfo(new string('-', 40));
-			Plugin.Logger.LogInfo($"IPALoader found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
+			IPALoader.Logger.LogInfo(new string('-', 40));
+			IPALoader.Logger.LogInfo($"IPALoader found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
 			foreach (var plugin in _Plugins)
-				Plugin.Logger.LogInfo($"{plugin.Name}: {plugin.Version}");
-			Plugin.Logger.LogInfo(new string('-', 40));
+				IPALoader.Logger.LogInfo($"{plugin.Name}: {plugin.Version}");
+			IPALoader.Logger.LogInfo(new string('-', 40));
 		}
 
 		private static IEnumerable<IPlugin> LoadPluginsFromFile(string file, string exeName)
@@ -67,20 +67,20 @@ namespace IllusionInjector
 							var pluginInstance = Activator.CreateInstance(t) as IPlugin;
 							string[] filter = null;
 
-							if (pluginInstance is IEnhancedPlugin)
-								filter = ((IEnhancedPlugin)pluginInstance).Filter;
+							if (pluginInstance is IEnhancedPlugin plugin)
+								filter = plugin.Filter;
 
 							if (filter == null || filter.Contains(exeName, StringComparer.OrdinalIgnoreCase))
 								plugins.Add(pluginInstance);
 						}
 						catch (Exception e)
 						{
-							Plugin.Logger.LogWarning($"[WARN] Could not load plugin {t.FullName} in {Path.GetFileName(file)}! {e}");
+							IPALoader.Logger.LogWarning($"[WARN] Could not load plugin {t.FullName} in {Path.GetFileName(file)}! {e}");
 						}
 			}
 			catch (Exception e)
 			{
-				Plugin.Logger.LogError($"[ERROR] Could not load {Path.GetFileName(file)}! {e}");
+				IPALoader.Logger.LogError($"[ERROR] Could not load {Path.GetFileName(file)}! {e}");
 			}
 
 			return plugins;

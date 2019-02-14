@@ -44,8 +44,7 @@ namespace Windows
 		private static void StreamToConsole()
 		{
 			var cstm = Console.OpenStandardOutput();
-			var cstw = new StreamWriter(cstm, Encoding.Default);
-			cstw.AutoFlush = true;
+			var cstw = new StreamWriter(cstm, Encoding.Default) { AutoFlush = true };
 			Console.SetOut(cstw);
 			Console.SetError(cstw);
 		}

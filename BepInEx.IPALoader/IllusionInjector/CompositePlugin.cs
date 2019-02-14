@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BepInEx.IPALoader;
 using IllusionPlugin;
 
 namespace IllusionInjector
@@ -32,7 +33,7 @@ namespace IllusionInjector
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("{0}: {1}", plugin.Name, ex);
+					IPALoader.Logger.LogError($"{plugin.Name} : {ex}");
 				}
 		}
 
@@ -45,7 +46,7 @@ namespace IllusionInjector
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("{0}: {1}", plugin.Name, ex);
+					IPALoader.Logger.LogError($"{plugin.Name}: {ex}");
 				}
 		}
 
@@ -72,7 +73,7 @@ namespace IllusionInjector
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("{0}: {1}", plugin.Name, ex);
+					IPALoader.Logger.LogError($"{plugin.Name}: {ex}");
 				}
 		}
 
@@ -80,8 +81,8 @@ namespace IllusionInjector
 		{
 			Invoke(plugin =>
 			{
-				if (plugin is IEnhancedPlugin)
-					((IEnhancedPlugin)plugin).OnLateUpdate();
+				if (plugin is IEnhancedPlugin enhancedPlugin)
+					enhancedPlugin.OnLateUpdate();
 			});
 		}
 
