@@ -1,73 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IllusionInjector
 {
-    public class PluginComponent : MonoBehaviour
-    {
-        private CompositePlugin plugins;
-        private bool freshlyLoaded = false;
-        private bool quitting = false;
+	public class PluginComponent : MonoBehaviour
+	{
+		private bool freshlyLoaded;
+		private CompositePlugin plugins;
+		private bool quitting;
 
-        public static PluginComponent Create()
-        {
-            return new GameObject("IPA_PluginManager").AddComponent<PluginComponent>();
-        }
+		public static PluginComponent Create()
+		{
+			return new GameObject("IPA_PluginManager").AddComponent<PluginComponent>();
+		}
 
-        void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
+		private void Awake()
+		{
+			DontDestroyOnLoad(gameObject);
 
-            plugins = new CompositePlugin(PluginManager.Plugins);
-            plugins.OnApplicationStart();
-        }
+			plugins = new CompositePlugin(PluginManager.Plugins);
+			plugins.OnApplicationStart();
+		}
 
-        void Start()
-        {
-            OnLevelWasLoaded(Application.loadedLevel);
-        }
+		private void Start()
+		{
+			OnLevelWasLoaded(Application.loadedLevel);
+		}
 
-        void Update()
-        {
-            if (freshlyLoaded)
-            {
-                freshlyLoaded = false;
-                plugins.OnLevelWasInitialized(Application.loadedLevel);
-            }
-            plugins.OnUpdate();
-        }
+		private void Update()
+		{
+			if (freshlyLoaded)
+			{
+				freshlyLoaded = false;
+				plugins.OnLevelWasInitialized(Application.loadedLevel);
+			}
 
-        void LateUpdate()
-        {
-            plugins.OnLateUpdate();
-        }
+			plugins.OnUpdate();
+		}
 
-        void FixedUpdate()
-        {
-            plugins.OnFixedUpdate();
-        }
+		private void LateUpdate()
+		{
+			plugins.OnLateUpdate();
+		}
 
-        void OnDestroy()
-        {
-            if (!quitting)
-            {
-                Create();
-            }
-        }
-        
-        void OnApplicationQuit()
-        {
-            plugins.OnApplicationQuit();
+		private void FixedUpdate()
+		{
+			plugins.OnFixedUpdate();
+		}
 
-            quitting = true;
-        }
+		private void OnDestroy()
+		{
+			if (!quitting)
+				Create();
+		}
 
-        void OnLevelWasLoaded(int level)
-        {
-            plugins.OnLevelWasLoaded(level);
-            freshlyLoaded = true;
-        }
-    }
+		private void OnApplicationQuit()
+		{
+			plugins.OnApplicationQuit();
+
+			quitting = true;
+		}
+
+		private void OnLevelWasLoaded(int level)
+		{
+			plugins.OnLevelWasLoaded(level);
+			freshlyLoaded = true;
+		}
+	}
 }
