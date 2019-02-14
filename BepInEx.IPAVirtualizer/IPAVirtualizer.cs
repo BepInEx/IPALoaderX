@@ -15,9 +15,16 @@ namespace BepInEx.IPAVirtualizer
 
 		public static void Patch(AssemblyDefinition ass)
 		{
-			using (Logger = BepInEx.Logger.CreateLogSource("IPAVirtualizer"))
+			Logger = BepInEx.Logger.CreateLogSource("IPAVirtualizer");
+            try
+			{
 				foreach (var type in ass.MainModule.Types)
 					VirtualizeType(type);
+			}
+			finally
+			{
+				BepInEx.Logger.Sources.Remove(Logger);
+			}
 		}
 
 		public static void VirtualizeType(TypeDefinition type)
