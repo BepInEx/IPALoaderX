@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using BepInEx;
+using BepInEx.Logging;
 using IllusionInjector;
 
 namespace IPALoaderX
@@ -8,8 +9,12 @@ namespace IPALoaderX
     [BepInPlugin("keelhauled.ipaloaderx", "IPALoaderX", "1.0.0")]
     public class IPALoaderX : BaseUnityPlugin
     {
+        internal new static ManualLogSource Logger;
+
         IPALoaderX()
         {
+            Logger = base.Logger;
+
             //only required for ILMerge
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {

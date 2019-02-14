@@ -6,9 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using BepInEx.Logging;
-using static BepInEx.Logger;
 using BepInEx;
+using Plugin = IPALoaderX.IPALoaderX;
 
 namespace IllusionInjector
 {
@@ -49,13 +48,13 @@ namespace IllusionInjector
                 _Plugins.AddRange(LoadPluginsFromFile(Path.Combine(pluginDirectory, s), exeName));
             }
 
-            Log(LogLevel.Info, new string('-', 40));
-            Log(LogLevel.Info, $"IPALoaderX found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
+            Plugin.Logger.LogInfo(new string('-', 40));
+            Plugin.Logger.LogInfo($"IPALoaderX found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
             foreach (var plugin in _Plugins)
             {
-                Log(LogLevel.Info, $"{plugin.Name}: {plugin.Version}");
+                Plugin.Logger.LogInfo($"{plugin.Name}: {plugin.Version}");
             }
-            Log(LogLevel.Info, new string('-', 40));
+            Plugin.Logger.LogInfo(new string('-', 40));
         }
 
         private static IEnumerable<IPlugin> LoadPluginsFromFile(string file, string exeName)
@@ -89,14 +88,14 @@ namespace IllusionInjector
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine("[WARN] Could not load plugin {0} in {1}! {2}", t.FullName, Path.GetFileName(file), e);
+                            Plugin.Logger.LogWarning($"[WARN] Could not load plugin {t.FullName} in {Path.GetFileName(file)}! {e}");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("[ERROR] Could not load {0}! {1}", Path.GetFileName(file), e);
+                Plugin.Logger.LogError($"[ERROR] Could not load {Path.GetFileName(file)}! {e}");
             }
 
             return plugins;

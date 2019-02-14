@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Mono.Cecil;
 
 namespace IPAVirtualizer
@@ -33,7 +34,7 @@ namespace IPAVirtualizer
             // These two don't seem to work.
             if(type.Name == "SceneControl" || type.Name == "ConfigUI") return;
 
-            Console.WriteLine("Virtualizing {0}", type.Name);
+            Trace.TraceInformation($"Virtualizing {type.Name}");
             // Take care of sub types
             foreach(var subType in type.NestedTypes)
             {
