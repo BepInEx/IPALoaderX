@@ -8,12 +8,12 @@ namespace IllusionInjector
 
 		public static void Inject()
 		{
-			if (!injected)
-			{
-				injected = true;
-				var bootstrapper = new GameObject("Bootstrapper").AddComponent<Bootstrapper>();
-				bootstrapper.Destroyed += Bootstrapper_Destroyed;
-			}
+			if (injected)
+				return;
+
+			injected = true;
+			var bootstrapper = new GameObject("Bootstrapper").AddComponent<Bootstrapper>();
+			bootstrapper.Destroyed += Bootstrapper_Destroyed;
 		}
 
 		private static void Bootstrapper_Destroyed()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 
 namespace IllusionPlugin
@@ -42,10 +43,9 @@ namespace IllusionPlugin
 		/// <returns></returns>
 		public static int GetInt(string section, string name, int defaultValue = 0, bool autoSave = false)
 		{
-			int value;
-			if (int.TryParse(Instance.IniReadValue(section, name), out value))
-				return value;
-			if (autoSave)
+            if (int.TryParse(Instance.IniReadValue(section, name), out var value))
+                return value;
+            if (autoSave)
 				SetInt(section, name, defaultValue);
 
 			return defaultValue;
@@ -62,10 +62,9 @@ namespace IllusionPlugin
 		/// <returns></returns>
 		public static float GetFloat(string section, string name, float defaultValue = 0f, bool autoSave = false)
 		{
-			float value;
-			if (float.TryParse(Instance.IniReadValue(section, name), out value))
-				return value;
-			if (autoSave)
+            if (float.TryParse(Instance.IniReadValue(section, name), out var value))
+                return value;
+            if (autoSave)
 				SetFloat(section, name, defaultValue);
 
 			return defaultValue;
@@ -110,7 +109,7 @@ namespace IllusionPlugin
 		/// <param name="value">Value that should be written.</param>
 		public static void SetFloat(string section, string name, float value)
 		{
-			Instance.IniWriteValue(section, name, value.ToString());
+			Instance.IniWriteValue(section, name, value.ToString(CultureInfo.InvariantCulture));
 		}
 
 		/// <summary>
