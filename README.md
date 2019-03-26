@@ -23,3 +23,5 @@ For example, this plugin allows for BepInEx to be used in Honey Select in order 
 1. Install [BepInEx](https://github.com/BepInEx/BepInEx#readme) to your game (you may need to edit the BepInEx entrypoint for it to work).
 2. Download the latest IPALoaderX release from [here](https://github.com/Keelhauled/IPALoaderX/releases).
 3. Place IPALoaderX.dll in the `BepInEx` folder and IPAVirtualizer.dll in the `patchers` folder.
+4. Make `Plugins` folder in your game folder (just like with original IPA).
+5. Put IPA plugins into `Plugins` folder, just like with IPA.
