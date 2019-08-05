@@ -5,7 +5,7 @@ using IllusionInjector;
 
 namespace BepInEx.IPALoader
 {
-	[BepInPlugin("keelhauled.ipaloader", "IPALoader", "1.0.0")]
+	[BepInPlugin("keelhauled.ipaloader", "IPALoader", "1.1.1")]
 	public class IPALoader : BaseUnityPlugin
 	{
 		internal new static ManualLogSource Logger;
