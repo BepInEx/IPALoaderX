@@ -136,7 +136,7 @@ namespace BepInEx.IPAHarmonyShimmer
 					{
 						shimmed = true;
 
-                        Logger.LogInfo($"Shimming {Path.GetFileNameWithoutExtension(file)}");
+						Logger.LogInfo($"Shimming {Path.GetFileNameWithoutExtension(file)}");
 
 						harmonyRef.Name = "0Harmony_Shim";
 						ad.MainModule.AssemblyReferences.Add(harmony2Ref);
@@ -162,7 +162,7 @@ namespace BepInEx.IPAHarmonyShimmer
 						definitionsAreReferences = true;
 						ad.Write(file);
 						definitionsAreReferences = false;
-                    }
+					}
 				}
 				catch (Exception e)
 				{
