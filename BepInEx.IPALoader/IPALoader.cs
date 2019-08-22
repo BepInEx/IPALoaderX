@@ -17,8 +17,9 @@ namespace BepInEx.IPALoader
 			// Redirect missing assembly requests to this assembly, since we have all the emulated code
 			AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
 			{
-				if (args.Name == "IllusionPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ||
-					args.Name == "IllusionInjector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")
+				var name = new AssemblyName(args.Name).Name;
+				if (name == "IllusionPlugin" ||
+					name == "IllusionInjector")
 					return Assembly.GetExecutingAssembly();
 
 				return null;
