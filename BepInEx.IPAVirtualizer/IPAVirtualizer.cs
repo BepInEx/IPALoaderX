@@ -6,6 +6,7 @@ namespace BepInEx.IPAVirtualizer
 {
     public static class IPAVirtualizer
     {
+        public const string PluginName = "BepInEx.IPAVirtualizer";
         public static IEnumerable<string> TargetDLLs { get; } = new[]
         {
             "Assembly-CSharp.dll"

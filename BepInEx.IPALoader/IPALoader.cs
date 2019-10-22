@@ -7,9 +7,10 @@ using System.Reflection;
 
 namespace BepInEx.IPALoader
 {
-    [BepInPlugin("keelhauled.ipaloader", "IPALoader", "1.1.1")]
+    [BepInPlugin(PluginName, PluginName, Metadata.PluginsVersion)]
     public class IPALoader : BaseUnityPlugin
     {
+        public const string PluginName = "BepInEx.IPALoader";
         internal static new ManualLogSource Logger;
         private readonly bool run = true;
 

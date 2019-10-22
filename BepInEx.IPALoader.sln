@@ -9,7 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.IPAVirtualizer", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.IPAHarmonyShimmer", "BepInEx.IPAHarmonyShimmer\BepInEx.IPAHarmonyShimmer.csproj", "{B022796F-A80E-41FE-AECF-D5BF2FDB0196}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{840C3CF7-696A-4998-8BF1-9510D1C9A3E2}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.projitems*{4e636178-add9-4306-be77-357adfb13aab}*SharedItemsImports = 4
+		Shared\Shared.projitems*{780f5e83-2a6b-4ea0-9476-449f5d96d56f}*SharedItemsImports = 4
+		Shared\Shared.projitems*{840c3cf7-696a-4998-8bf1-9510d1c9a3e2}*SharedItemsImports = 13
+		Shared\Shared.projitems*{b022796f-a80e-41fe-aecf-d5bf2fdb0196}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

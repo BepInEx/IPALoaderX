@@ -13,6 +13,7 @@ namespace BepInEx.IPAHarmonyShimmer
 {
     public static class HarmonyShimmer
     {
+        public const string PluginName = "BepInEx.IPAHarmonyShimmer";
         public static IEnumerable<string> TargetDLLs { get; } = new[] { "Assembly-CSharp.dll" };
 
         private static ManualLogSource Logger = Logging.Logger.CreateLogSource("IPAHarmonyShim");
