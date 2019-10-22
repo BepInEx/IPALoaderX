@@ -1,5 +1,6 @@
 ﻿using BepInEx.Configuration;
 using BepInEx.Harmony;
+using BepInEx.IPALoader;
 using BepInEx.Logging;
 using HarmonyLib;
 using Mono.Cecil;
@@ -16,9 +17,9 @@ namespace BepInEx.IPAHarmonyShimmer
         public const string PluginName = "BepInEx.IPAHarmonyShimmer";
         public static IEnumerable<string> TargetDLLs { get; } = new[] { "Assembly-CSharp.dll" };
 
-        private static ManualLogSource Logger = Logging.Logger.CreateLogSource("IPAHarmonyShim");
+        private static readonly ManualLogSource Logger = Logging.Logger.CreateLogSource("IPAHarmonyShim");
         public static ConfigWrapper<string> IPAPluginsPath { get; private set; }
-        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, "BepInEx.IPALoader.cfg"), false);
+        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
 
         private static DefaultAssemblyResolver resolver;
         private static ReaderParameters readerParameters;
@@ -55,7 +56,7 @@ namespace BepInEx.IPAHarmonyShimmer
 
         public static void Initialize()
         {
-            IPAPluginsPath = cfgFile.Wrap("Config", "Plugins Path", "Folder from which to load IPA plugins relative to the game root directory", "Plugins");
+            IPAPluginsPath = cfgFile.Wrap(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDescription, Metadata.ConfigDefaultValue);
 
             HarmonyWrapper.PatchAll(typeof(HarmonyShimmer));
 

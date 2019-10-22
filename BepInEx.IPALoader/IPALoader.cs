@@ -15,11 +15,11 @@ namespace BepInEx.IPALoader
         private readonly bool run = true;
 
         public static ConfigWrapper<string> IPAPluginsPath { get; private set; }
-        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, "BepInEx.IPALoader.cfg"), false);
+        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
 
         private IPALoader()
         {
-            IPAPluginsPath = cfgFile.Wrap("Config", "Plugins Path", "Folder from which to load IPA plugins relative to the game root directory", "Plugins");
+            IPAPluginsPath = cfgFile.Wrap(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDescription, Metadata.ConfigDefaultValue);
             Logger = base.Logger;
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
