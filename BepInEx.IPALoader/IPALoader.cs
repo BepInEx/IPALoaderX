@@ -14,12 +14,12 @@ namespace BepInEx.IPALoader
         internal static new ManualLogSource Logger;
         private readonly bool run = true;
 
-        public static ConfigWrapper<string> IPAPluginsPath { get; private set; }
-        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
+        public static ConfigEntry<string> IPAPluginsPath { get; private set; }
+        public static ConfigFile CfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
 
         private IPALoader()
         {
-            IPAPluginsPath = cfgFile.Wrap(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDescription, Metadata.ConfigDefaultValue);
+            IPAPluginsPath = CfgFile.Bind(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDefaultValue, Metadata.ConfigDescription);
             Logger = base.Logger;
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -37,8 +37,7 @@ namespace BepInEx.IPALoader
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
                 var name = new AssemblyName(args.Name).Name;
-                if (name == "IllusionPlugin" ||
-                    name == "IllusionInjector")
+                if (name == "IllusionPlugin" || name == "IllusionInjector")
                     return Assembly.GetExecutingAssembly();
 
                 return null;
