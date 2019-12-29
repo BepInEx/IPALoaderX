@@ -18,8 +18,8 @@ namespace BepInEx.IPAHarmonyShimmer
         public static IEnumerable<string> TargetDLLs { get; } = new[] { "Assembly-CSharp.dll" };
 
         private static readonly ManualLogSource Logger = Logging.Logger.CreateLogSource("IPAHarmonyShim");
-        public static ConfigWrapper<string> IPAPluginsPath { get; private set; }
-        public static ConfigFile cfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
+        public static ConfigEntry<string> IPAPluginsPath { get; private set; }
+        public static ConfigFile CfgFile { get; } = new ConfigFile(Path.Combine(Paths.ConfigPath, Metadata.ConfigFileName), false);
 
         private static DefaultAssemblyResolver resolver;
         private static ReaderParameters readerParameters;
@@ -56,7 +56,7 @@ namespace BepInEx.IPAHarmonyShimmer
 
         public static void Initialize()
         {
-            IPAPluginsPath = cfgFile.Wrap(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDescription, Metadata.ConfigDefaultValue);
+            IPAPluginsPath = CfgFile.Bind(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDefaultValue, Metadata.ConfigDescription);
 
             HarmonyWrapper.PatchAll(typeof(HarmonyShimmer));
 
