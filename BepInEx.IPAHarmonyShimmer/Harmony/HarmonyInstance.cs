@@ -112,6 +112,12 @@ namespace Harmony
 			return processor.Patch().FirstOrDefault();
 		}
 
+		public void PatchVoid(MethodBase original, HarmonyMethod prefix, HarmonyMethod postfix, HarmonyMethod transpiler)
+		{
+			var processor = new PatchProcessor(this, new List<MethodBase> { original }, prefix, postfix, transpiler);
+			processor.Patch();
+		}
+
 		public void UnpatchAll(string harmonyID = null)
 		{
 			bool IDCheck(Patch patchInfo) => harmonyID == null || patchInfo.owner == harmonyID;

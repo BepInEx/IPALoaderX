@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace BepInEx.IPAHarmonyShimmer
 {
@@ -156,6 +157,16 @@ namespace BepInEx.IPAHarmonyShimmer
                                 tr.Namespace = @namespace;
                                 tr.Scope = harmony2Ref;
                             }
+
+                        foreach (var memberReference in ad.MainModule.GetMemberReferences())
+						{
+							if (memberReference is MethodReference mref && 
+								mref.DeclaringType.Name == "HarmonyInstance" && 
+								mref.DeclaringType.Scope == harmonyRef && 
+								mref.Name == "Patch" && 
+								mref.ReturnType.FullName == "System.Void")
+								mref.Name = "PatchVoid";
+						}
                     }
 
                     if (shimmed)
