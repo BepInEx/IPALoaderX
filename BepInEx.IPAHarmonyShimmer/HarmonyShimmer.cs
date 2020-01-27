@@ -169,6 +169,14 @@ namespace BepInEx.IPAHarmonyShimmer
 						}
                     }
 
+                    // Toss .NET 4 attribute in case mono is doesn't support it
+					var tfa = ad.CustomAttributes.FirstOrDefault(c => c.AttributeType.FullName == "System.Runtime.Versioning.TargetFrameworkAttribute");
+					if (tfa != null)
+					{
+						shimmed = true;
+						ad.CustomAttributes.Remove(tfa);
+					}
+
                     if (shimmed)
                     {
                         var pathPart = file.Substring(pluginDirectory.Length + 1);
