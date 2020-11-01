@@ -44,7 +44,7 @@ namespace IllusionInjector
             IPALoader.Logger.LogInfo(new string('-', 40));
             IPALoader.Logger.LogInfo($"IPALoader found {_Plugins.Count} plugins in \"{pluginDirectory}\"");
             foreach (var plugin in _Plugins)
-                IPALoader.Logger.LogInfo($"{plugin.Name}: {plugin.Version}");
+                IPALoader.Logger.LogInfo($"{plugin?.Name}: {plugin?.Version}");
             IPALoader.Logger.LogInfo(new string('-', 40));
         }
 
@@ -60,10 +60,17 @@ namespace IllusionInjector
                 var assembly = Assembly.LoadFrom(file);
 
                 foreach (var t in assembly.GetTypes())
-                    if (t.GetInterface("IPlugin") != null)
+                    if (typeof(IPlugin).IsAssignableFrom(t))
                         try
                         {
                             var pluginInstance = Activator.CreateInstance(t) as IPlugin;
+
+                            if (pluginInstance == null)
+                            {
+                                IPALoader.Logger.LogWarning($"[WRN] Could not load {t.FullName} because types mismatch. Please check if you have multiple instances of IPA installed.");
+                                continue;
+                            }
+                            
                             string[] filter = null;
 
                             if (pluginInstance is IEnhancedPlugin plugin)
