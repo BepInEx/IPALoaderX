@@ -1,5 +1,4 @@
 ﻿using BepInEx.Configuration;
-using BepInEx.Harmony;
 using BepInEx.IPALoader;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 
 namespace BepInEx.IPAHarmonyShimmer
 {
@@ -59,7 +57,7 @@ namespace BepInEx.IPAHarmonyShimmer
         {
             IPAPluginsPath = CfgFile.Bind(Metadata.ConfigSection, Metadata.ConfigKey, Metadata.ConfigDefaultValue, Metadata.ConfigDescription);
 
-            HarmonyWrapper.PatchAll(typeof(HarmonyShimmer));
+            HarmonyLib.Harmony.CreateAndPatchAll(typeof(HarmonyShimmer));
 
             resolver = new DefaultAssemblyResolver();
             readerParameters = new ReaderParameters { AssemblyResolver = resolver };
