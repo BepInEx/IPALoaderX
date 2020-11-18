@@ -70,13 +70,14 @@ namespace IllusionInjector
                                 IPALoader.Logger.LogWarning($"[WRN] Could not load {t.FullName} because types mismatch. Please check if you have multiple instances of IPA installed.");
                                 continue;
                             }
-                            
+
                             string[] filter = null;
 
                             if (pluginInstance is IEnhancedPlugin plugin)
                                 filter = plugin.Filter;
 
-                            if (filter == null || filter.Contains(exeName, StringComparer.OrdinalIgnoreCase))
+                            var exeNameTrimmed = exeName.ToLower().Replace(".exe", "").Trim();
+                            if (filter == null || filter.Any(f => f.ToLower().Replace(".exe", "").Trim() == exeNameTrimmed))
                                 plugins.Add(pluginInstance);
                         }
                         catch (Exception e)
