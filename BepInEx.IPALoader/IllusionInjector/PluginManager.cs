@@ -59,7 +59,7 @@ namespace IllusionInjector
             {
                 var assembly = Assembly.LoadFrom(file);
 
-                foreach (var t in assembly.GetTypes())
+                foreach (var t in GetTypesSafe(assembly))
                     if (typeof(IPlugin).IsAssignableFrom(t))
                         try
                         {
@@ -91,6 +91,21 @@ namespace IllusionInjector
             }
 
             return plugins;
+        }
+
+        private static IEnumerable<Type> GetTypesSafe(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                IPALoader.Logger.LogWarning("Could not load some types from assembly " + assembly.FullName + " - check debug log for details");
+                foreach (var eLoaderException in e.LoaderExceptions)
+                    IPALoader.Logger.LogDebug(eLoaderException);
+                return e.Types.Where(x => x != null);
+            }
         }
 
         public class AppInfo
