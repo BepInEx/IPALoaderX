@@ -2,7 +2,7 @@
 {
     public static class Metadata
     {
-        public const string PluginsVersion = "1.2.3";
+        public const string PluginsVersion = "1.2.4";
 
         internal const string ConfigFileName = "BepInEx.IPALoader.cfg";
         internal const string ConfigSection = "Config";
